@@ -46,7 +46,7 @@ if ($_SESSION['log'] == '') {
                     </html>
                 </button>
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="profile.php" class="nav_link">My Profile</a>
+                <a href="#" id="profile" class="nav_link">My Profile</a>
                     <!-- <a href="temp1.php" class="nav_link">Project Details</a>
                     <a href="#" id="changepass" class="button nav_link" style="border-color: white;">Change Password</a> -->
                     <a href="database/logout.php" class="nav_link">Log Out</a>
@@ -144,15 +144,65 @@ if ($_SESSION['log'] == '') {
 
 
             <br /><br /><br /><br /><br /><br />
-
-        </section>
-    </section>
-
-    <footer class="footer">
+            <footer class="footer">
         <div class="container">
             <p>&copy; 2024 TeamUp. All rights reserved.</p>
         </div>
     </footer>
+    </section>
+        <div class="form_container">
+            <i class="uil uil-times form_close"></i>
+            <div class="form profile_form">
+                <h2>Your Profile</h2>
+
+                <div class="input_box">
+                    <h5 align="left">Name: </h5>
+                    <input type="text" name="name" style="border-bottom: 1.5px solid #aaaaaa;" value="<?php echo "" . $_SESSION['name'] . "" ?>" readonly />
+                    <i class="uil uil-text text"></i>
+                </div>
+                <div class="input_box">
+                    <h5 align="left">Email: </h5>
+                    <input type="email" name="email" value="<?php echo "" . $_SESSION['email'] . "" ?>" readonly />
+                    <i class="uil uil-envelope-alt email"></i>
+                </div>
+
+                <div class="input_box">
+                    <h5 align="left">Password: </h5>
+                    <input type="password" name="password" value="Password: <?php echo "" . $_SESSION['password'] . ""; ?>" readonly />
+                    <i class="uil uil-lock password"></i>
+                </div>
+                <h5 align="right"><a href="#" id="changepass"><br>Change Password?</a></h5>
+
+            </div>
+            <!-- change password -->
+            <div class="form reset_form">
+                <form action="database/update.php" method="post">
+                    <h2>Change Password</h2>
+                    <div class="input_box">
+                        <input type="password" name="currentpassword" onchange="checkpassword()" id="currentpassword" placeholder="Current password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" id="password" placeholder="Create password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="repassword" id="repassword" placeholder="Confirm password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+
+                    <button class="button" id="change">Change</button>
+                </form>
+            </div>
+
+        </div>
+       
+    </section>
+
+    
 </body>
 
 </html>

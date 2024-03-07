@@ -56,7 +56,7 @@ if ($_SESSION['log'] == '') {
     </header>
 
     <section class="home">
-        <section class="hero">
+        <section class="hero"style="padding-bottom: 0px;">
             <div id="create-project-form">
                 <h2 style="color: black;">Create a New Project</h2>
                 <input type="text" id="project-name" placeholder="Enter project name" required>
@@ -92,43 +92,48 @@ if ($_SESSION['log'] == '') {
 
             $email = $_SESSION['email'];
             $sql = "SELECT p_id FROM member WHERE m_email = ?";
-            
+
             $stmt = $connect->prepare($sql);
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $stmt->bind_result($p_id);
-            
-            if($stmt->fetch()) {
-                $stmt->close(); 
-            
-            
+
+            if ($stmt->fetch()) {
+                $stmt->close();
+
+
                 $sql1 = "SELECT pname FROM projects WHERE id = ?";
                 $stmt1 = $connect->prepare($sql1);
                 $stmt1->bind_param("s", $p_id);
                 $stmt1->execute();
                 $stmt1->bind_result($p_name);
-            
-            
-            
+
+
+
                 while ($stmt1->fetch()) {
-              
-              
-                    echo '<div id="projects-container" style="color: black;">';
+
+
+                    echo '<div id="projects-container" style="color: black; margin-top: 15px;">';
                     echo '<h3>My Projects(As Member):</h3>';
-                   
+
                     echo '<div id="proj1" class="project">';
                     echo '<input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" class="project-name" value="Project: ' . $p_name . '" />';
                     echo '</div>';
                     echo '</div>';
                 }
-            
-                $stmt1->close(); 
+
+                $stmt1->close();
             }
-            
+
 
             ?>
 
             <br /><br />
+            <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TeamUp. All rights reserved.</p>
+        </div>
+    </footer>
         </section>
         <div class="form_container">
             <i class="uil uil-times form_close"></i>
@@ -154,24 +159,24 @@ if ($_SESSION['log'] == '') {
                 <h5 align="right"><a href="#" id="changepass"><br>Change Password?</a></h5>
 
             </div>
-        <!-- change password -->
+            <!-- change password -->
             <div class="form reset_form">
                 <form action="database/update.php" method="post">
                     <h2>Change Password</h2>
                     <div class="input_box">
                         <input type="password" name="currentpassword" onchange="checkpassword()" id="currentpassword" placeholder="Current password" required />
                         <i class="uil uil-lock password" style="top: 50%;"></i>
-                        <i class="uil uil-eye-slash pw_hide"style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
                     </div>
                     <div class="input_box">
                         <input type="password" name="password" id="password" placeholder="Create password" required />
-                        <i class="uil uil-lock password"style="top: 50%;"></i>
-                        <i class="uil uil-eye-slash pw_hide"style="top: 50%;"></i>
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
                     </div>
                     <div class="input_box">
                         <input type="password" name="repassword" id="repassword" placeholder="Confirm password" required />
-                        <i class="uil uil-lock password"style="top: 50%;"></i>
-                        <i class="uil uil-eye-slash pw_hide"style="top: 50%;"></i>
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
                     </div>
 
                     <button class="button" id="change">Change</button>
@@ -179,17 +184,9 @@ if ($_SESSION['log'] == '') {
             </div>
 
         </div>
-        <!-- Home -->
+
     </section>
-
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 TeamUp. All rights reserved.</p>
-        </div>
-    </footer>
-    </section>
-
+   
 </body>
 
 </html>
