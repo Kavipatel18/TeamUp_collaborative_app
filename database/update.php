@@ -2,11 +2,8 @@
 session_start();
 include 'connect.php';
 
-$email = $_POST['email'];
-if(!$email)
-{
-    $email=$_SESSION['email'];
-}
+$email=$_SESSION['email'];
+
 $password2 = $_POST['repassword'];
 $password = $_POST['password'];
 

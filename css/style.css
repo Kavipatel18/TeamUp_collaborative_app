@@ -211,10 +211,12 @@ element.style {
   color: #707070;
 }
 .input_box i.email,
+.input_box i.text,
 .input_box i.password {
   left: 0;
 }
 .input_box input:focus ~ i.email,
+.input_box input:focus ~ i.text,
 .input_box input:focus ~ i.password {
   color: #7d2ae8;
 }
@@ -384,3 +386,4 @@ element.style {
   padding: 20px 0;
   text-align: center;
 }
+

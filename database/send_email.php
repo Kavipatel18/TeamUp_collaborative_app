@@ -1,7 +1,8 @@
 <?php
-
+session_start();
 $otp = $_POST['otp'];
 $email = $_POST['email'];
+$_SESSION['email']=$email;
 
 $to_email = $email;
 $subject = "TeamUp: Forget Password OTP..";

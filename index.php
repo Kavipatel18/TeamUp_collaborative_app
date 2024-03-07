@@ -148,8 +148,8 @@
             <div class="container" style="color: black;">
                 <h2><br />Welcome to TeamUp</h2>
                 <p>Your platform for collaboration and teamwork.</p>
-
-                <button class="button" id="getStarted">Get Started</button>
+                <!-- <button class="button" id="form-open">Login</button> -->
+                <button class="button" id="form-open">Get Started</button>
 
             </div>
         </section>
@@ -214,7 +214,7 @@
             <div class="container">
                 <p>&copy; 2024 TeamUp. All rights reserved.</p>
             </div>
-        </footer>
+</footer>
     </section>
     <script src="js/script.js"></script>
 </body>

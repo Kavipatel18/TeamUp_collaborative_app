@@ -1,6 +1,7 @@
+'use strict';
 let otp = "";
 document.addEventListener("DOMContentLoaded", function () {
-  const formOpenBtn = document.querySelector("#form-open"),
+  const formOpenBtn = document.querySelectorAll("#form-open"),
     home = document.querySelector(".home"),
     formContainer = document.querySelector(".form_container"),
     formCloseBtn = document.querySelector(".form_close"),
@@ -13,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     changeBtn = document.querySelector("#change"),
     pwShowHide = document.querySelectorAll(".pw_hide");
 
-  formOpenBtn.addEventListener(
+  for(let i = 0;i<formOpenBtn.length;i++)
+  formOpenBtn[i].addEventListener(
     "click",
     () => home.classList.add("show"),
     (document.querySelector(".forget_form").style.display = "none"),
@@ -117,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
  
 
   changeBtn.addEventListener("click", (e) => {
-    let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let repassword = document.getElementById("repassword").value;
     
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Unwanted Error!!");
         }
     };
-    xhr.send("email=" + email + "&password=" + password + "&repassword=" + repassword);
+    xhr.send("password=" + password + "&repassword=" + repassword);
 });
 
 
