@@ -77,7 +77,7 @@ if ($_SESSION['log'] == '') {
                 while ($row = mysqli_fetch_assoc($result)) {
 
                     echo '<div id="proj1" class="project">';
-                    echo '<input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" class="project-name" value="Project: ' . $row['pname'] . '" />';
+                    echo '<input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" class="project-name" value="Project: ' . $row['pname'] . '" /><span class="delete" id="delete">&times;</span>';
                     echo '</div>';
                 }
                 echo '</div>';
@@ -117,7 +117,8 @@ if ($_SESSION['log'] == '') {
                     echo '<h3>My Projects(As Member):</h3>';
 
                     echo '<div id="proj1" class="project">';
-                    echo '<input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" class="project-name" value="Project: ' . $p_name . '" />';
+                    echo '<input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" class="project-name" value="Project: ' . $p_name . '" /><span class="delete" id="delete-member">&times;</span>';
+           
                     echo '</div>';
                     echo '</div>';
                 }

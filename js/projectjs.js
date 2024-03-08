@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var res = x.responseText;
   
             if (res == "Member added successfully.") {
-              alert("Refresh Page for result!!");
+                location.reload();
             } else {
               alert("Failed to add member.");
             }

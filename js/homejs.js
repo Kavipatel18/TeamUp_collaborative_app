@@ -147,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (temp != null) temp.remove();
             createProject(projectName);
             projectNameInput.value = "";
+            location.reload();
           }
         } else {
           alert("Request failed with status: " + x.status);
@@ -160,14 +161,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const projectElement = document.createElement("div");
     projectElement.classList.add("project");
     projectElement.innerHTML = `
-            <input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" id="projectshow"class="project-name" value="Project : ${projectName} " />
+            <input type="submit" style="border:none; font-size:18px;width: -webkit-fill-available;" id="projectshow"class="project-name" value="Project : ${projectName} " /><span class="delete" id="delete">&times;</span>
       `;
 
     projectsContainer.appendChild(projectElement);
   }
+});
 
-  //project onclick redirector :
-
+//project onclick redirector :
+document.addEventListener("DOMContentLoaded", function () {
   const projectButtons = document.querySelectorAll(".project-name");
 
   projectButtons.forEach(function (button) {
@@ -180,6 +182,68 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+//on click delete
+document.addEventListener("DOMContentLoaded", function () {
+  const deletebtn = document.querySelectorAll("#delete");
+
+  deletebtn.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      if(confirm("Are you want to delete-project!")==true)
+      {
+      const projectName = button.previousElementSibling.value.substring(9);
+      console.log("Project Name:" + projectName);
+
+      var x = new XMLHttpRequest();
+      x.open("POST", "database/delete_project.php");
+      x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      x.onload = function () {
+        if (x.status >= 200 && x.status < 300) {
+          var res = x.responseText;
+            location.reload();
+        
+        } else {
+          alert("Request failed with status: " + x.status);
+        }
+      };
+      x.send("project=" + encodeURIComponent(projectName));
+      location.reload();
+    }
+    });
+  });
+});
+
+//on click delete-member
+document.addEventListener("DOMContentLoaded", function () {
+  const deletebtn = document.querySelectorAll("#delete-member");
+
+  deletebtn.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      if(confirm("Are you want to delete-project!")==true)
+      {
+      const projectName = button.previousElementSibling.value.substring(9);
+      console.log("Project Name:" + projectName);
+
+      var x = new XMLHttpRequest();
+      x.open("POST", "database/delete_member.php");
+      x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      x.onload = function () {
+        if (x.status >= 200 && x.status < 300) {
+          var res = x.responseText;
+          location.reload();
+        
+        } else {
+          alert("Request failed with status: " + x.status);
+        }
+      };
+      x.send("project=" + encodeURIComponent(projectName));
+    }
+    });
+  });
+});
+
 
 //search bar:
 

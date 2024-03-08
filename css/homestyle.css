@@ -144,7 +144,7 @@ header {
 .edit-icon {
     cursor: pointer;
 }
-.delete-icon {
+.delete{
     cursor: pointer; 
 }
 input[type="text"]{
