@@ -32,9 +32,9 @@ if ($_SESSION['log'] == '') {
 
             <ul class="nav_items">
                 <li class="nav_item">
-                    <a href="#services" class="nav_link">DashBoard</a>
                     <a href="home.php" class="nav_link">My Projects</a>
-                    <a href="#about" class="nav_link">Activity Tracking</a>
+                    <a href="Activity.php" class="nav_link">Activity Tracking</a>
+                    <a href="#services" class="nav_link">DashBoard</a>
                     <a href="#contact" class="nav_link">Chat</a>
                 </li>
             </ul>
@@ -57,7 +57,7 @@ if ($_SESSION['log'] == '') {
     </header>
     <section class="home">
         <!-- Home -->
-        <section class="hero" style="padding-bottom: 0px;">
+        <section class="hero" style="padding-bottom: 0px; padding-top:50px">
             <div style="color: black;padding-top:50px">
                 <table>
                     <tr>
@@ -91,7 +91,7 @@ if ($_SESSION['log'] == '') {
                         if ($stmt) {
                             while ($stmt->fetch()) {
                                 $flag = true;
-                                echo '<td>' . $m_email . '</td></tr>';
+                                echo '<td><span class="email">' . $m_email . '</span>   &nbsp;<span class="delete" id="delete">&times;</span></td></tr>';
                                 echo '<tr></tr><tr><td></td>';
                             }
                         }

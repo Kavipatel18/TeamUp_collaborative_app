@@ -74,6 +74,7 @@
 
                         <div class="input_box">
                             <input type="text" name="name" placeholder="Enter your name" required />
+                            <i class="uil uil-text text"></i>
                         </div>
                         <div class="input_box">
                             <input type="email" name="email" placeholder="Enter your email" required />

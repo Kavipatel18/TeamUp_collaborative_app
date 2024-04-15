@@ -41,7 +41,25 @@ document.addEventListener("DOMContentLoaded", function () {
   
             if (res == "Member added successfully.") {
                 location.reload();
-            } else {
+            } 
+            else if(res="Failed to add member.")
+            {
+              //alert("hi,you want to drink chai!")
+              alert("Member is not user of TeamUp.We send email to user\nwait for few seconds");
+              const xhr = new XMLHttpRequest();
+              xhr.open("POST", "database/send_email_newUser.php");
+              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhr.onload = function () {
+                if (xhr.status === 200) {
+                  alert("Email sent!");
+                 location.reload();
+                } else {
+                  alert("Member is not user of TeamUp");
+                }
+              };
+              xhr.send("memberName=" + memberName);
+            }
+            else {
               alert("Failed to add member.");
             }
           } else {
@@ -93,6 +111,39 @@ document.addEventListener("DOMContentLoaded", function () {
         getPwInput.type = "password";
         icon.classList.replace("uil-eye", "uil-eye-slash");
       }
+    });
+  });
+});
+
+// on click delete
+document.addEventListener("DOMContentLoaded", function () {
+  const deletebtn = document.querySelectorAll("#delete");
+
+  deletebtn.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      if(confirm("Are you want to delete project-member!")==true)
+      {
+      event.preventDefault();
+      let mName = this.parentNode.querySelector('.email').textContent.trim();
+      console.log("Member Name:" + mName);
+ 
+      var x = new XMLHttpRequest();
+      x.open("POST", "database/delete_member.php");
+      x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      x.onload = function () {
+        if (x.status >= 200 && x.status < 300) {
+          var res = x.responseText;
+          console.log(res);
+           location.reload();
+        
+        } else {
+          alert("Request failed with status: " + x.status);
+        }
+      };
+      x.send("memail=" + encodeURIComponent(mName));
+      location.reload();
+    }
     });
   });
 });

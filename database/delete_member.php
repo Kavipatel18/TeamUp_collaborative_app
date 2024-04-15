@@ -1,36 +1,38 @@
 <?php
 session_start();
-include 'connect.php';
+require_once 'connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['project'])) {
-        $projectName = $_POST['project'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['memail'])) {
+    $memail = $_POST['memail'];
 
-        $sql1 = "select id FROM projects WHERE pname=?";
-        $stmt1 = $connect->prepare($sql1);
-        $stmt1->bind_param("s", $projectName);
-        $stmt1->execute();
-        $stmt1->bind_result($p_id);
-        
+    $sql = "DELETE FROM member WHERE m_email=?";
+    $sql1 = "DELETE FROM activity WHERE m_email=?";
+    try {
+        $stmt = $connect->prepare($sql);
+        $stmt->bind_param("s", $memail);
+        $stmt->execute();
 
-        if ($stmt1->fetch()) {
-            $stmt1->close();
-            $sql = "DELETE FROM member WHERE p_id=?";
-            $stmt = mysqli_prepare($connect, $sql);
-            mysqli_stmt_bind_param($stmt, "s", $p_id);
-            mysqli_stmt_execute($stmt);
-            if (mysqli_stmt_affected_rows($stmt) > 0) {
-                echo 'Member Deleted Successfully';
-            } else {
-                echo "Error!!";
-            }
+        if ($stmt->affected_rows === 1) {
+            echo 'Member Deleted Successfully';
         } else {
-            echo $_POST['project'];
-            echo "Project not exist!!";
+            echo "Error: ". $memail. " not found!";
         }
 
-        mysqli_stmt_close($stmt);
+    } catch (Exception $e) {
+        echo "Error: ". $e->getMessage();
     }
-}
-?>
 
+    $stmt->close();
+
+    try {
+        $stmt1 = $connect->prepare($sql1);
+        $stmt1->bind_param("s", $memail);
+        $stmt1->execute();
+
+        $stmt1->affected_rows;
+    } catch (Exception $e) {
+        echo "Error: ". $e->getMessage();
+    }
+
+    $stmt1->close();
+}

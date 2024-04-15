@@ -28,9 +28,14 @@
     flex: 0 0 48%;
 }
 
-table {
-    text-align: justify;
+table,table2 {
+    text-align: center;
     display: -webkit-inline-box;
+    background-color: white;
+}
+th{
+    padding: 15px;
+    padding-top: 0px!important;
 }
 #add-button {
     padding: 0.5rem 1rem;
@@ -46,4 +51,14 @@ table {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 1rem;
+}
+#activity-name {
+    width: calc(100% - 120px)!important;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+.delete1{
+    cursor: pointer; 
 }

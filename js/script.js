@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
  
+  //change pass
 
   changeBtn.addEventListener("click", (e) => {
     let password = document.getElementById("password").value;
@@ -139,8 +140,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 });
-const forget = document.querySelector("#passforget");
 
+//forget pass otp
+
+const forget = document.querySelector("#passforget");
 
 function generateOtp(length) {
   let emailInput = document.getElementById("email");

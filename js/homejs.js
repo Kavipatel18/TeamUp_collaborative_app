@@ -214,36 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//on click delete-member
-document.addEventListener("DOMContentLoaded", function () {
-  const deletebtn = document.querySelectorAll("#delete-member");
-
-  deletebtn.forEach(function (button) {
-    button.addEventListener("click", function (event) {
-      if(confirm("Are you want to delete-project!")==true)
-      {
-      const projectName = button.previousElementSibling.value.substring(9);
-      console.log("Project Name:" + projectName);
-
-      var x = new XMLHttpRequest();
-      x.open("POST", "database/delete_member.php");
-      x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-      x.onload = function () {
-        if (x.status >= 200 && x.status < 300) {
-          var res = x.responseText;
-          location.reload();
-        
-        } else {
-          alert("Request failed with status: " + x.status);
-        }
-      };
-      x.send("project=" + encodeURIComponent(projectName));
-    }
-    });
-  });
-});
-
 
 //search bar:
 
