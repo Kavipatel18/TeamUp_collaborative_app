@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //project onclick redirector :
 document.addEventListener("DOMContentLoaded", function () {
   const projectButtons = document.querySelectorAll(".project-name");
-
+  const member = document.querySelectorAll(".member-project");
   projectButtons.forEach(function (button) {
     button.addEventListener("click", function (event) {
       const projectName = button.value.trim().substring(9);
@@ -179,6 +179,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       window.location.href =
         "database/redirector.php?project=" + encodeURIComponent(projectName);
+    });
+  });
+  member.forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      const projectName = button.value.trim().substring(9);
+      console.log("Project Name:" + projectName);
+
+      window.location.href =
+        "database/redirectormember.php?project=" + encodeURIComponent(projectName);
     });
   });
 });

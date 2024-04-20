@@ -13,7 +13,8 @@ if (mysqli_num_rows($result) <= 0) {
     $_SESSION['pname'] = $row['pname'];
     $_SESSION['u_id'] = $row['u_id'];
     $_SESSION['id'] = $row['id'];
-    $_SESSION["leader"]=1;
+    $_SESSION['leader']=0;
+    
     
     // echo $_SESSION['pname'];
     // echo $_SESSION['u_id'];

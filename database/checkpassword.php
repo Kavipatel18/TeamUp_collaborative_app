@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $con = mysqli_num_rows($result);
     if ($con <= 0) {
-        echo "<h3>Email is not registered yet!!</h3><br><br>";
-        echo '<center><table><tr><td><a href="../index.php"><button style="background-color: #354f52; border-color: #354f52; color: white"><span>Register</span></button></a></td></tr></table></center>';
+        echo "<script>alert('Email is not registered yet!!')</script>";
+        echo'<script>window.location.href="../index.php";</script>';
     } else {
         $row = mysqli_fetch_array($result);
         $password2 = $row['password'];

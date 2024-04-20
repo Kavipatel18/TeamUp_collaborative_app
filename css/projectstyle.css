@@ -1,5 +1,5 @@
 .home {
-    padding: 20px;
+    width: 100%;
 }
 
 .project-details {
@@ -30,6 +30,7 @@
 
 table,table2 {
     text-align: center;
+    margin-bottom: 20px !important;
     display: -webkit-inline-box;
     background-color: white;
 }

@@ -12,7 +12,7 @@ if ($_SESSION['log'] == '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Index</title>
+    <title>TeamUp</title>
     <link rel="website icon" type="png" href="pic/web-logo2.png">
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/homestyle.css" />
@@ -28,14 +28,15 @@ if ($_SESSION['log'] == '') {
 <body>
     <header class="header" style="padding-left: 0px; padding-right: 0px;">
         <nav class="nav">
-            <a href="project.php" class="nav_logo"><img src="pic/logo2.png" alt="TeamUp's Logo" style="height: 50px; width: auto;" /></a>
+            <a href="home.php" class="nav_logo"><img src="pic/logo2.png" alt="TeamUp's Logo" style="height: 50px; width: auto;" /></a>
 
             <ul class="nav_items">
                 <li class="nav_item">
-                    <a href="home.php" class="nav_link">My Projects</a>
+                    <a href="home.php" class="nav_link">Home</a>
+                    <a href="project.php" class="nav_link">Project</a>
                     <a href="Activity.php" class="nav_link">Activity Tracking</a>
-                    <a href="#services" class="nav_link">DashBoard</a>
-                    <a href="#contact" class="nav_link">Chat</a>
+                    <a href="dashboard.php" class="nav_link">DashBoard</a>
+                    <a href="group_chat.php" class="nav_link">Chat</a>
                 </li>
             </ul>
 
@@ -59,7 +60,7 @@ if ($_SESSION['log'] == '') {
         <!-- Home -->
         <section class="hero" style="padding-bottom: 0px; padding-top:50px">
             <div style="color: black;padding-top:50px">
-                <table>
+                <table style="padding: 20px;">
                     <tr>
                         <td style="text-align: left;"><strong>Project Details:</strong></td>
                         <td style="text-align: left;"><strong>Name:</strong> <?php echo $_SESSION['pname']; ?></td>
@@ -91,7 +92,14 @@ if ($_SESSION['log'] == '') {
                         if ($stmt) {
                             while ($stmt->fetch()) {
                                 $flag = true;
-                                echo '<td><span class="email">' . $m_email . '</span>   &nbsp;<span class="delete" id="delete">&times;</span></td></tr>';
+                                
+                                echo '<td><span class="email">'. $m_email . '</span>   &nbsp;';
+                                $check=$_SESSION["leader"];
+                                
+                                if($check!=0)
+                                echo '<span class="delete" id="delete">&times;</span>';
+                                
+                                echo '</td></tr>';
                                 echo '<tr></tr><tr><td></td>';
                             }
                         }
@@ -135,7 +143,7 @@ if ($_SESSION['log'] == '') {
                 echo '</div>';
             } else {
                 echo '<div id="create-project-form">';
-                echo '<h3 style="color: black;">You Can not add new Member!!</h3>';
+                echo '<h3 style="color: black;padding-left:100px;">You Can not add new Member!!</h3>';
                 echo '</div>';
             }
 

@@ -17,7 +17,7 @@ Project Details: 📝
 Project: $pname And Project-ID: $id 
 Leader: $email And Leader-ID: $id
 
-Please Sign-up using this link 🔗: http://localhost:7882/TeamUp_collaborative_app/index.php
+Please Sign-up using this link 🔗: http://localhost:8080/TeamUp_collaborative_app/index.php
 Thank You";
 $headers = "From: example@gmail.com";
 

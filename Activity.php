@@ -33,14 +33,15 @@ if ($_SESSION['log'] == '') {
 <body>
     <header class="header" style="padding-left: 0px; padding-right: 0px;">
         <nav class="nav">
-            <a href="project.php" class="nav_logo"><img src="pic/logo2.png" alt="TeamUp's Logo" style="height: 50px; width: auto;" /></a>
+            <a href="home.php" class="nav_logo"><img src="pic/logo2.png" alt="TeamUp's Logo" style="height: 50px; width: auto;" /></a>
 
             <ul class="nav_items">
                 <li class="nav_item">
-                    <a href="home.php" class="nav_link">My Projects</a>
+                    <a href="home.php" class="nav_link">Home</a>
+                    <a href="project.php" class="nav_link">Project</a>
                     <a href="activity.php" class="nav_link">Activity Tracking</a>
-                    <a href="#services" class="nav_link">DashBoard</a>
-                    <a href="#contact" class="nav_link">Chat</a>
+                    <a href="dashboard.php" class="nav_link">DashBoard</a>
+                    <a href="group_chat.php" class="nav_link">Chat</a>
                 </li>
             </ul>
 
@@ -51,7 +52,7 @@ if ($_SESSION['log'] == '') {
                     </html>
                 </button>
                 <div id="myDropdown" class="dropdown-content">
-                    <a href="profile.php" class="nav_link">My Profile</a>
+                <a href="#" id="profile" class="nav_link">My Profile</a>
                     <!-- <a href="temp1.php" class="nav_link">Project Details</a>
                     <a href="#" id="changepass" class="button nav_link" style="border-color: white;">Change Password</a> -->
                     <a href="database/logout.php" class="nav_link">Log Out</a>
@@ -64,7 +65,7 @@ if ($_SESSION['log'] == '') {
         <!-- Home -->
         <section class="hero" style="padding-bottom: 0px; padding-top:50px">
             <div style="color: black;padding-top:50px">
-                <table>
+                <table style="padding: 20px;">
                     <tr>
                         <td style="text-align: left;"><strong>Project Details:</strong></td>
                         <td style="text-align: left;"><strong>Name:</strong> <?php echo $_SESSION['pname']; ?></td>
@@ -96,7 +97,7 @@ if ($_SESSION['log'] == '') {
                         if ($stmt) {
                             while ($stmt->fetch()) {
                                 $flag = true;
-                                echo '<td><span class="email">' . $m_email . '</span>   &nbsp;<span class="delete1" id="delete">&times;</span></td></tr>';
+                                echo '<td><span class="email">' . $m_email . '</span>   &nbsp;</td></tr>';
                                 echo '<tr></tr><tr><td></td>';
                             }
                         }
@@ -144,12 +145,12 @@ if ($_SESSION['log'] == '') {
 
                     $sql = "SELECT activity_id, activity_name, m_email, isDone FROM activity WHERE p_id = ?";
                     $stmt = $connect->prepare($sql);
-                    $stmt->bind_param("i", $p_id);
+                    $stmt->bind_param("s", $p_id);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
                     echo '<br><div id="projects-container" style="color: black; margin-top: 15px;padding-bottom: 30px;">';
-                    echo '<h3 style="padding-left: 313px; padding-bottom: 15px;">Activity List</h3>';
+                    echo '<h3 style="padding-left: 313px; padding-bottom: 15px;text-content="center";">Activity List</h3>';
 
                     if ($result->num_rows <= 0) {
                         //echo '<h5 style="color: black;">No activity assigned.</h5><br><br>';
@@ -180,7 +181,7 @@ if ($_SESSION['log'] == '') {
                             echo '<td>' . $a['m_email'] . '</td>';
                             echo '<td>';
 
-                            echo '<input type="checkbox" name="Done" id="isdone" class="isDoneCheckbox" data-activity-id="' . $a['activity_id'] . '"';
+                            echo '<input type="checkbox" id="isdone" class="isDoneCheckbox" data-activity-id="' . $a['activity_id'] . '"';
                             echo ($a['isDone'] == 0) ? '' : ' checked';
                             echo '>';
                             echo '</td>';
@@ -198,7 +199,7 @@ if ($_SESSION['log'] == '') {
                     }
                 } else {
                     echo '<div id="create-project-form">
-                            <h3 style="color: black;">You Can not add new Activity!!</h3>
+                            <h3 style="color: black;padding-left:100px">You Can not add new Activity!!</h3>
                           </div>';
 
 
@@ -206,7 +207,7 @@ if ($_SESSION['log'] == '') {
 
                     $sql = "SELECT activity_id, activity_name, m_email, isDone FROM activity WHERE p_id = ? AND  m_email = ?";
                     $stmt = $connect->prepare($sql);
-                    $stmt->bind_param("is", $p_id, $email);
+                    $stmt->bind_param("ss", $p_id, $email);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
@@ -261,21 +262,68 @@ if ($_SESSION['log'] == '') {
                 }
             } else {
                 echo '<div id="create-project-form">
-                        <h3 style="color: black;">You Can not add new Activity!!</h3>
+                        <h3 style="color: black;padding-left=100px;">You Can not add new Activity!!</h3>
                       </div>';
             }
 
             ?>
+        </section>
+<div class="form_container">
+            <i class="uil uil-times form_close"></i>
+            <div class="form profile_form">
+                <h2>Your Profile</h2>
 
-            <br /><br />
-            <footer class="footer">
+                <div class="input_box">
+                    <h5 align="left">Name: </h5>
+                    <input type="text" name="name" style="border-bottom: 1.5px solid #aaaaaa;" value="<?php echo "" . $_SESSION['name'] . "" ?>" readonly />
+                    <i class="uil uil-text text"></i>
+                </div>
+                <div class="input_box">
+                    <h5 align="left">Email: </h5>
+                    <input type="email" name="email" value="<?php echo "" . $_SESSION['email'] . "" ?>" readonly />
+                    <i class="uil uil-envelope-alt email"></i>
+                </div>
+
+                <div class="input_box">
+                    <h5 align="left">Password: </h5>
+                    <input type="password" name="password" value="Password: <?php echo "" . $_SESSION['password'] . ""; ?>" readonly />
+                    <i class="uil uil-lock password"></i>
+                </div>
+                <h5 align="right"><a href="#" id="changepass"><br>Change Password?</a></h5>
+
+            </div>
+            <!-- change password -->
+            <div class="form reset_form">
+                <form action="database/update.php" method="post">
+                    <h2>Change Password</h2>
+                    <div class="input_box">
+                        <input type="password" name="currentpassword" onchange="checkpassword()" id="currentpassword" placeholder="Current password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" id="password" placeholder="Create password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="repassword" id="repassword" placeholder="Confirm password" required />
+                        <i class="uil uil-lock password" style="top: 50%;"></i>
+                        <i class="uil uil-eye-slash pw_hide" style="top: 50%;"></i>
+                    </div>
+
+                    <button class="button" id="change">Change</button>
+                </form>
+            </div>
+
+        </div>
+        
+
+        <footer class="footer">
                 <div class="container">
                     <p>&copy; 2024 TeamUp. All rights reserved.</p>
                 </div>
             </footer>
-        </section>
-
-
 </body>
 
 </html>

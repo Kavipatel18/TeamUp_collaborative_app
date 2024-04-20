@@ -56,7 +56,7 @@ if ($_SESSION['log'] == '') {
     </header>
 
     <section class="home">
-        <section class="hero"style="padding-bottom: 0px;">
+        <section class="hero" style="padding-bottom: 0px;">
             <div id="create-project-form">
                 <h2 style="color: black;">Create a New Project</h2>
                 <input type="text" id="project-name" placeholder="Enter project name" required>
@@ -67,8 +67,8 @@ if ($_SESSION['log'] == '') {
             include 'database/connect.php';
 
             $user_id = $_SESSION['u_id'];
-            $sql = "SELECT * FROM projects WHERE u_id = $user_id";
-            $result = mysqli_query($connect, $sql);
+            $sql11 = "SELECT * FROM projects WHERE u_id = $user_id";
+            $result = mysqli_query($connect, $sql11);
 
             // Check if there are any projects
             if (mysqli_num_rows($result) > 0) {
@@ -91,50 +91,55 @@ if ($_SESSION['log'] == '') {
             }
 
             $email = $_SESSION['email'];
-            $sql = "SELECT p_id FROM member WHERE m_email = ?";
 
-            $stmt = $connect->prepare($sql);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $stmt->bind_result($p_id);
+            $sql = "SELECT * FROM member WHERE m_email = ?";
+            $stmt = mysqli_prepare($connect, $sql);
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-            if ($stmt->fetch()) {
-                $stmt->close();
+            if (mysqli_num_rows($result) > 0) {
+                echo '<div id="projects-container" style="color: black;">';
+                echo '<h3>My Projects(as Member):</h3>';
+                
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $pro_id = $row['p_id'];
 
+                    $sql1 = "SELECT * FROM projects WHERE id = ?";
+                    $stmt1 = mysqli_prepare($connect, $sql1);
+                    mysqli_stmt_bind_param($stmt1, "s", $pro_id);
+                    mysqli_stmt_execute($stmt1);
+                    $result1 = mysqli_stmt_get_result($stmt1);
 
-                $sql1 = "SELECT pname FROM projects WHERE id = ?";
-                $stmt1 = $connect->prepare($sql1);
-                $stmt1->bind_param("s", $p_id);
-                $stmt1->execute();
-                $stmt1->bind_result($p_name);
-
-
-
-                while ($stmt1->fetch()) {
-
-
-                    echo '<div id="projects-container" style="color: black; margin-top: 15px;">';
-                    echo '<h3>My Projects(As Member):</h3>';
-
-                    echo '<div id="proj1" class="project">';
-                    echo '<input type="submit" style="border:none; font-size:18px;width: 95%;" class="project-name" value="Project: ' . $p_name . '" />';
-           
-                    echo '</div>';
-                    echo '</div>';
+                    while ($row1 = mysqli_fetch_assoc($result1)) {
+                        echo '<div id="proj1" class="project">';
+                        echo '<input type="submit" style="border:none; font-size:18px;width: 95%;" class="project-name member-project" value="Project: ' . $row1['pname'] . '" />';
+                        echo '</div>';
+                    }
                 }
-
-                $stmt1->close();
+                echo '</div>';
+            } else {
+                echo '<div id="projects-container" style="color: black;">';
+                echo '<h3>My Projects(as Member):</h3>';
+                echo '<div class="project"id="proj">';
+                echo '<input type="submit" style="border:none; font-size:18px;width: 95%;"  class="project-name" value="Project Not Created Yet!!" />';
+                echo '</div>';
+                echo '</div>';
             }
+
+            mysqli_stmt_close($stmt);
+            mysqli_stmt_close($stmt1);
+            mysqli_close($connect);
 
 
             ?>
 
             <br /><br />
             <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 TeamUp. All rights reserved.</p>
-        </div>
-    </footer>
+                <div class="container">
+                    <p>&copy; 2024 TeamUp. All rights reserved.</p>
+                </div>
+            </footer>
         </section>
         <div class="form_container">
             <i class="uil uil-times form_close"></i>
@@ -187,7 +192,7 @@ if ($_SESSION['log'] == '') {
         </div>
 
     </section>
-   
+
 </body>
 
 </html>

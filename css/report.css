@@ -1,0 +1,78 @@
+body {
+    background-color: #1a1a1a; /* Dark background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff; /* White container background */
+    width: 210mm; /* A4 paper width */
+    padding: 20mm;
+    margin: 20px
+    box-shadow 0 0 10px rgba(0, 0, 0, 0.5);
+    color: #333333; /* Dark text color */
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 32px;
+    color: #007bff; /* Primary color */
+    margin: 0;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    font-size: 24px;
+    color: #007bff; /* Primary color */
+    margin-bottom: 20px;
+}
+
+.section p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.section ul {
+    padding-left: 20px;
+}
+
+.section li {
+    font-size: 16px;
+    padding-left:180px;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.downloadPDF {
+    display: inline-block;
+    width: 150px;
+    margin-left: 540px !important;
+    padding: 10px;
+    background-color: #007bff; /* Primary color */
+    color: #ffffff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.downloadPDF:hover {
+    background-color: #0056b3; /* Darker shade of primary color on hover */
+}

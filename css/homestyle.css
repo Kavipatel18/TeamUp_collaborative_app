@@ -126,6 +126,7 @@ header {
 #projects-container {
     max-width: 800px;
     margin: 0 auto;
+    margin-bottom: 20px !important;
     padding: 1rem;
     background-color: honeydew;
     border-radius: 5px;

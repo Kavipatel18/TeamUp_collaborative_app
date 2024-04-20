@@ -21,23 +21,23 @@
     // }
     // else{
     if ($password == $password2)
-        $sql_userdatabase = "Insert into data(email, password ) values ('$email' , '$password')";
+        $sql_userdatabase = "Insert into data(email, password,name) values ('$email' , '$password','$name')";
 
     else
         echo "<h3>Registration Unsuccessful: </h3>";
 
     try {
         if (mysqli_query($connect, $sql_userdatabase) == true) {
-            echo "<h3>You have been successfully registered</h3><br><br>";
-            echo '<center><table><tr><td><a href="../index.php"><button style="background-color: #354f52; border-color: #354f52; color: white"><span>Sign in!</span></button></a></td></tr></table></center>';
+            echo "<script>alert('You have been successfully registered')</script>";
+            echo '<script>window.location.href="../index.php";</script>';
         } else {
 
             throw new Exception("Email already in use. Please register with a different email.");
         }
     } catch (Exception $e) {
 
-        echo "<h3>Registration Unsuccessful: " . $e->getMessage() . "</h3><br><br>";
-        echo '<center><table><tr><td><a href="../index.php"><button style="background-color: #354f52; border-color: #354f52; color: white"><span>Register Again</span></button></a></td></tr></table></center>';
+        echo "<script>alert('Registration Unsuccessful: " . $e->getMessage() . "')</script>";
+        echo'<script>window.location.href="../index.php";</script>';
     }
 
     ?>
