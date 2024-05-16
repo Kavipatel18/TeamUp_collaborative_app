@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sqlq = "SELECT isDone FROM activity WHERE activity_id = ?";
         $stmt = $connect->prepare($sqlq);
-        $stmt->bind_param("i", $aid);
+        $stmt->bind_param("s", $aid);
         $stmt->execute();
         $stmt->bind_result($isdone);
         
@@ -16,16 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->close(); 
             if($isdone == 0)
             {
-                $sql = "UPDATE activity SET isDone='1' WHERE activity_id = ?";
+                $sql = "UPDATE activity SET isDone=1 WHERE activity_id = ?";
                 $stmt = $connect->prepare($sql);
-                $stmt->bind_param("i", $aid);
+                $stmt->bind_param("s", $aid);
                 $stmt->execute();
                 echo 'Activity Done successfully.';
                 $stmt->close();
             } else {
-                $sql = "UPDATE activity SET isDone='0' WHERE activity_id = ?";
+                $sql = "UPDATE activity SET isDone=0 WHERE activity_id = ?";
                 $stmt = $connect->prepare($sql);
-                $stmt->bind_param("i", $aid);
+                $stmt->bind_param("s", $aid);
                 $stmt->execute();
                 echo 'Activity Done successfully.';
                 $stmt->close();

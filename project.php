@@ -34,7 +34,7 @@ if ($_SESSION['log'] == '') {
                 <li class="nav_item">
                     <a href="home.php" class="nav_link">Home</a>
                     <a href="project.php" class="nav_link">Project</a>
-                    <a href="Activity.php" class="nav_link">Activity Tracking</a>
+                    <a href="activity.php" class="nav_link">Activity Tracking</a>
                     <a href="dashboard.php" class="nav_link">DashBoard</a>
                     <a href="group_chat.php" class="nav_link">Chat</a>
                 </li>

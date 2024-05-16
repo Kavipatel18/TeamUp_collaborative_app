@@ -1,7 +1,4 @@
-<html>
-
-<body>
-    <?php
+ <?php
     session_start();
 
     include 'connect.php';
@@ -12,35 +9,35 @@
     $password2 = $_POST['repassword'];
     $password = $_POST['password'];
 
-    // $sql = "Select * from data where email='$email'";
-    // $result = mysqli_query($connect, $sql);
-    //         $con=mysqli_num_rows($result);
-    // if($con <= 0)
-    // {
-    //     echo "<h3>Email is already Register</h3>";
-    // }
-    // else{
-    if ($password == $password2)
-        $sql_userdatabase = "Insert into data(email, password,name) values ('$email' , '$password','$name')";
+    $sql = "Select * from data where email='$email'";
+    $result = mysqli_query($connect, $sql);
+    $con = mysqli_num_rows($result);
 
-    else
-        echo "<h3>Registration Unsuccessful: </h3>";
+    if ($con > 0) {
+        echo "<script>alert('Email is already Register');</script>";
+        echo '<script>window.location.href="../index.php";</script>';
+    } else {
+        if ($password == $password2)
+            $sql_userdatabase = "Insert into data(email, password,name) values ('$email' , '$password','$name')";
 
-    try {
-        if (mysqli_query($connect, $sql_userdatabase) == true) {
-            echo "<script>alert('You have been successfully registered')</script>";
+        else{
+            echo "<script>alert('Password must be same,try again!')</script>";
             echo '<script>window.location.href="../index.php";</script>';
-        } else {
-
-            throw new Exception("Email already in use. Please register with a different email.");
         }
-    } catch (Exception $e) {
+           
 
-        echo "<script>alert('Registration Unsuccessful: " . $e->getMessage() . "')</script>";
-        echo'<script>window.location.href="../index.php";</script>';
+        try {
+            if (mysqli_query($connect, $sql_userdatabase) == true) {
+                echo "<script>alert('You have been successfully registered')</script>";
+                echo '<script>window.location.href="../index.php";</script>';
+            } else {
+
+                throw new Exception("Email already in use. Please register with a different email.");
+            }
+        } catch (Exception $e) {
+
+            echo "<script>alert('Registration Unsuccessful: " . $e->getMessage() . "')</script>";
+            echo '<script>window.location.href="../index.php";</script>';
+        }
     }
-
     ?>
-</body>
-
-</html>

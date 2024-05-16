@@ -1,12 +1,33 @@
 <?php
-    session_start();
-    include 'database/connect.php';
+session_start();
+include 'database/connect.php';
 
-    if ($_SESSION['log'] == '') {
-        header("location:index.php");
+if ($_SESSION['log'] == '') {
+    header("location:index.php");
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $email = $_SESSION['email'];
+    $pid = $_SESSION['id'];
+    //$msg = $_REQUEST['msg'];
+    $msg = mysqli_real_escape_string($connect, $_REQUEST['msg']);
+    date_default_timezone_set('Asia/Kolkata');
+    $ts = date('y-m-d h:ia', time());
+
+    $stmt = $connect->prepare("INSERT INTO chats (p_id, email, messages, dates) VALUES (?,?,?,?)");
+    $stmt->bind_param("ssss", $pid, $email, $msg, $ts);
+    if (!$stmt->execute()) {
+        echo "Error: " . $stmt->error;
     }
+    $stmt->close();
+    $connect->close();
+    header("Location: Group_chat.php");
+    exit();
+}
+
 ?>
 <html>
+
 <head>
     <link rel="website icon" type="png" href="pic/web-logo2.png">
     <link rel="stylesheet" href="css/style.css" />
@@ -25,9 +46,9 @@
             <li class="nav_item">
                 <a href="home.php" class="nav_link">Home</a>
                 <a href="project.php" class="nav_link">Project</a>
-                <a href="Activity.php" class="nav_link">Activity Tracking</a>
+                <a href="activity.php" class="nav_link">Activity Tracking</a>
                 <a href="dashboard.php" class="nav_link">DashBoard</a>
-                <a href="Group_chat.php" class="nav_link">Chat</a>
+                <a href="group_chat.php" class="nav_link">Chat</a>
             </li>
         </ul>
 
@@ -60,30 +81,9 @@
                 }
             </script>
 
-            <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) 
-            {
-                $email = $_SESSION['email'];
-                $pid = $_SESSION['id'];
-                //$msg = $_REQUEST['msg'];
-                $msg = mysqli_real_escape_string($connect, $_REQUEST['msg']);
-                date_default_timezone_set('Asia/Kolkata');
-                $ts = date('y-m-d h:ia', time());
 
-                $stmt = $connect->prepare("INSERT INTO chats (p_id, email, messages, dates) VALUES (?,?,?,?)");
-                $stmt->bind_param("ssss", $pid, $email, $msg, $ts);
-                if (!$stmt->execute()) 
-                {
-                    echo "Error: ". $stmt->error;
-                }
-                $stmt->close();
-                $connect->close();
-                header("Location: Group_chat.php");
-                exit();
-            }
-            ?>
 
-            <form id="myform" action="Group_chat.php" method="POST">
+            <form id="myform" action="group_chat.php" method="POST">
                 <div class="inner_div" id="chathist">
                     <?php
                     include 'database/connect.php';
@@ -96,17 +96,15 @@
                     $stmt->execute();
                     $result = $stmt->get_result();
 
-                    while ($row = $result->fetch_assoc()) 
-                    {
-                        if ($row['email'] === $currentUserEmail) 
-                        {
+                    while ($row = $result->fetch_assoc()) {
+                        if ($row['email'] === $currentUserEmail) {
                     ?>
                             <div id="triangle1" class="triangle1"></div>
                             <div id="message1" class="message1">
-                                    <span style="color:black;float:left;font-size:10px;clear:both;">
-                                        <?php echo $row['email']; ?>
-                                    </span><br/>
-                                <span style="color:white;float:right;"class="message-text">
+                                <span style="color:black;float:left;font-size:10px;clear:both;">
+                                    <?php echo $row['email']; ?>
+                                </span><br />
+                                <span style="color:white;float:right;" class="message-text">
                                     <?php echo $row['messages']; ?>
                                 </span> <br />
                                 <div>
@@ -116,30 +114,28 @@
                                 </div>
                             </div>
                             <br /><br />
-                            <?php
-                        } 
-                        else 
-                        {
-                            ?>
-                                <div id="triangle" class="triangle"></div>
-                                <div id="message" class="message">
-                                        <span style="color:black;float:left;font-size:10px;clear:both;">
-                                            <?php echo $row['email']; ?>
-                                        </span><br/>
-                                    <span style="color:white;float:left;"class="message-text">
-                                        <?php echo $row['messages']; ?>
-                                    </span> <br />
-                                    <div>
-                                        <span style="color:black;float:right;font-size:10px;clear:both;">
-                                            <?php echo $row['dates']; ?>
-                                        </span>
-                                    </div>
+                        <?php
+                        } else {
+                        ?>
+                            <div id="triangle" class="triangle"></div>
+                            <div id="message" class="message">
+                                <span style="color:black;float:left;font-size:10px;clear:both;">
+                                    <?php echo $row['email']; ?>
+                                </span><br />
+                                <span style="color:white;float:left;" class="message-text">
+                                    <?php echo $row['messages']; ?>
+                                </span> <br />
+                                <div>
+                                    <span style="color:black;float:right;font-size:10px;clear:both;">
+                                        <?php echo $row['dates']; ?>
+                                    </span>
                                 </div>
-                                <br /><br />
+                            </div>
+                            <br /><br />
                     <?php
                         }
                     }
-                    ?>   
+                    ?>
                 </div>
 
 

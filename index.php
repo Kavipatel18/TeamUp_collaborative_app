@@ -199,7 +199,7 @@
         <section id="about" class="about">
             <div class="container">
                 <h2>About Us</h2>
-                <p>TeamUp is dedicated to helping teams work together efficiently and effectively. Our mission is to provide the best collaboration tools to businesses of all sizes.</p>
+                <p>TeamUp is dedicated to helping teams work together efficiently and effectively.</p><p>Our mission is to provide the best collaboration tools to businesses of all sizes.Have Great Day!!</p>
             </div>
         </section>
 
@@ -208,7 +208,7 @@
                 <h2>Contact Us</h2>
                 <p>Email: info@teamup.com</p>
                 <p>Phone: 123-456-7890</p>
-                <p>Address: 123 Main Street, City, Country</p>
+                <p>Address: Mota Bazaar, Vallabh Vidyanagar, Anand, Gujarat :388120</p>
             </div>
         </section>
         <footer class="footer">

@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         $u_id = $_SESSION['u_id'];
 
-        $sql1 = "select * from projects where pname='$projectName'";
+        $sql1 = "select * from projects where pname='$projectName' and u_id='$u_id'";
         $result1 = mysqli_query($connect, $sql1);
-        if (mysqli_num_rows($result1) >= 0) {
+        if (mysqli_num_rows($result1) <= 0) {
             $randomId = substr(uniqid(), -5);
             $p_id = $randomId;
             
